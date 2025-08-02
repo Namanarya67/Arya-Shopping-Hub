@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Forterer Hair Oil-Arya Shopping Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      /* Blood golden and deep yellowish background */
+      background: linear-gradient(135deg, #fff4cc 0%, #fceabb 50%, #f8d776 100%);
+      min-height: 100vh;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      perspective: 1200px;
+    }
+    .product-detail {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px 0 rgba(179,18,23,0.15), 0 2px 12px 0 rgba(0,0,0,0.12);
+      padding: 40px 32px;
+      max-width: 600px;
+      margin: 40px auto;
+      text-align: center;
+      animation: pop3d 1s cubic-bezier(.25,.8,.25,1);
+      transform-style: preserve-3d;
+    }
+    .product-images {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .product-images img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px 0 rgba(255,0,0,0.10);
+      transition: transform 0.5s cubic-bezier(.25,.8,.25,1);
+    }
+    .product-images img:hover {
+      transform: scale(1.08) rotateY(18deg) rotateX(8deg);
+    }
+    .product-detail h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #d72660;
+      text-shadow: 0 2px 12px #ffe25977, 0px 2px 10px rgba(248, 215, 107, 0.4);
+    }
+    .about-section {
+      margin: 24px 0;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      background: linear-gradient(180deg, #fffdf5 60%, #fff7e6 100%);
+      color: #7b1e22;
+      border-radius: 12px;
+      padding: 18px 16px;
+      box-shadow: 0 2px 8px 0 rgba(255,0,0,0.06);
+      animation: fadeInUp 1.2s 0.2s both;
+    }
+    .back-btn {
+      margin-top: 24px;
+      background: linear-gradient(90deg, #b4c73f 0%, #f5cb5c 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 24px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px 0 rgba(255,0,0,0.08);
+      transition: transform 0.2s, background 0.2s;
+      will-change: transform;
+    }
+    .back-btn:hover {
+      animation: zoom 0.7s linear;
+      transform: scale(1.05);
+      background: linear-gradient(90deg, #ffe296 0%, #ffc266 100%);
+    }
+    @keyframes pop3d {
+      0% { opacity: 0; transform: scale(0.7) rotateY(60deg);}
+      60% { opacity: 1; transform: scale(1.05) rotateY(-10deg);}
+      100% { opacity: 1; transform: scale(1) rotateY(0);}
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      10% { opacity: 0.7; }
+      20% { opacity: 0.4; }
+      30% { opacity: 0.9; }
+      40% { opacity: 0.5; }
+      50% { opacity: 1; }
+      60% { opacity: 0.6; }
+      70% { opacity: 0.8; }
+      80% { opacity: 0.5; }
+      90% { opacity: 0.9; }
+    }
+    .buy-btn {
+      background: linear-gradient(90deg, #ff7b54 0%, #f8b500 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 24px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px 0 rgba(255,0,0,0.08);
+      transition: transform 0.2s, background 0.2s;
+      will-change: transform;
+      margin-left: 0;
+      margin-top: 24px;
+    }
+    .buy-btn:hover {
+      animation: zoom 0.7s linear;
+      transform: scale(1.05);
+      background: linear-gradient(90deg, #ffe296 0%, #ffc266 100%);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeInUp 0.7s;
+    }
+    .modal-content.buy-3d {
+      background: #fffbe6;
+      color: #222;
+      border-radius: 18px;
+      padding: 32px 24px;
+      width: 95%;
+      max-width: 400px;
+      box-shadow: 0 8px 32px 0 rgba(255,0,0,0.15), 0 2px 12px 0 rgba(0,0,0,0.12);
+      position: relative;
+      animation: pop3d 0.7s cubic-bezier(.25,.8,.25,1);
+      transform-style: preserve-3d;
+    }
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 2rem;
+      color: #d72660;
+      cursor: pointer;
+      z-index: 10001;
+      transition: color 0.2s;
+      user-select: none;
+    }
+    .close-modal:hover {
+      color: #ff4444;
+    }
+    .location-btn, .use-address-btn, .pay-btn {
+      background: linear-gradient(90deg, #ffe259 0%, #ffa751 100%);
+      color: #222;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-bottom: 0;
+      box-shadow: 0 2px 8px 0 rgba(255,0,0,0.08);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .location-btn:hover, .use-address-btn:hover, .pay-btn:hover {
+      animation: flicker 0.7s linear;
+      transform: scale(1.08) rotateY(8deg);
+      background: linear-gradient(90deg, #ffa751 0%, #ffe259 100%);
+    }
+    input[type="text"], input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+      background: #fff;
+      box-shadow: 0 1px 4px 0 rgba(255,0,0,0.04);
+    }
+    .about-section p {
+      color: #6b4f2c; /* soft deep gray-brown */
+    }
+    .key-benefit-title {
+      color: #a26712;
+      font-weight: bold;
+      margin-bottom: 10px;
+      margin-top: 18px;
+      letter-spacing: 0.5px;
+    }
+    .key-benefit-list {
+      text-align: left;
+      margin-left: 32px;
+      color: #6b4f2c;
+      padding-left: 18px;
+      list-style-type: disc;
+    }
+    .key-benefit-list li {
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+      position: relative;
+    }
+    .key-benefit-list li::marker {
+      color: #c28f2c;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <div class="product-detail">
+    <div class="product-images">
+      <img src="Hair-Oil_0033_17-Furterer-5-Sense-Hair-Oil.webp" alt="Furterer Hair Oil 1">
+      <img src="https://assets.myntassets.com/h_200,w_200,c_fill,g_auto/h_1440,q_100,w_1080/v1/assets/images/productimage/2020/12/2/6674e3b7-cf00-49a6-bbc5-8845256e738f1606898507152-1.jpg" alt="Furterer Hair Oil 2">
+      <img src="https://tse4.mm.bing.net/th/id/OIP.5gqY8qJLo7SUqfuLk2fzVgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Furterer Hair Oil 3">
+    </div>
+    <h2>Furterer Hair oil</h2>
+    <div class="about-section">
+      <p style="color:#6b4f2c;">
+        FortéRer Hair Oil is a premium botanical hair treatment enriched with essential oils and plant-based ingredients designed to nourish, repair, and strengthen your hair from root to tip. Ideal for all hair types, this luxurious oil penetrates deeply to promote hair growth, reduce breakage, and add a natural, healthy shine.
+      </p>
+      <h3 class="key-benefit-title">Key Benefits:</h3>
+      <ul class="key-benefit-list">
+        <li>Deep nourishment for dry and damaged hair</li>
+        <li>Promotes healthy hair growth</li>
+        <li>Reduces split ends and breakage</li>
+        <li>Adds shine and softness</li>
+        <li>Infused with natural essential oils for a soothing aroma</li>
+      </ul>
+    </div> 
+    <div style="display:flex;justify-content:center;gap:16px;">
+      <button class="back-btn" onclick="window.location.href='Front.html'">← Back to Shop</button>
+      <button class="buy-btn" onclick="openBuyModal()">Buy Now</button>
+    </div>
+  </div>
+
+  <!-- Buy Now Modal -->
+  <div class="modal" id="buyModal">
+    <div class="modal-content buy-3d">
+      <span class="close-modal" onclick="closeBuyModal()">&times;</span>
+      <h2>Delivery Address</h2>
+      <form id="addressForm" onsubmit="event.preventDefault(); saveAddress();">
+        <input type="text" id="country" placeholder="Country" required>
+        <input type="text" id="fullname" placeholder="Full Name" required>
+        <input type="tel" id="mobile" placeholder="Mobile Number" required>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input type="text" id="location" placeholder="Location" required style="flex:1;">
+          <button type="button" class="location-btn" onclick="detectLocation()">Use My Location</button>
+        </div>
+        <input type="text" id="landmark" placeholder="Landmark" required>
+        <input type="text" id="pincode" placeholder="Pincode" required>
+        <input type="text" id="state" placeholder="State" required>
+        <button type="submit" class="use-address-btn">Use My Address</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Payment Modal -->
+  <div class="modal" id="paymentModal">
+    <div class="modal-content buy-3d">
+      <span class="close-modal" onclick="closePaymentModal()">&times;</span>
+      <h2>Payment</h2>
+      <form id="paymentForm" onsubmit="event.preventDefault(); completeOrder();">
+        <label style="display:block;text-align:left;margin-bottom:8px;">
+          <input type="radio" name="payment" value="cod" required> Cash on Delivery
+        </label>
+        <label style="display:block;text-align:left;margin-bottom:8px;">
+          <input type="radio" name="payment" value="card"> Credit/Debit Card
+        </label>
+        <label style="display:block;text-align:left;margin-bottom:16px;">
+          <input type="radio" name="payment" value="online"> Online Payment (UPI/Netbanking)
+        </label>
+        <div id="paymentFields"></div>
+        <button type="submit" class="pay-btn">Complete Payment</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Modal logic
+    function openBuyModal() {
+      document.getElementById('buyModal').style.display = 'flex';
+    }
+    function closeBuyModal() {
+      document.getElementById('buyModal').style.display = 'none';
+    }
+    function closePaymentModal() {
+      document.getElementById('paymentModal').style.display = 'none';
+    }
+
+    // Detect location using Geolocation API
+    function detectLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          // Use a geocoding API for real address (here just show lat/lon)
+          document.getElementById('location').value = `Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`;
+        }, function() {
+          alert("Unable to detect location.");
+        });
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    // Save address and open payment modal
+    function saveAddress() {
+      // Save address fields to localStorage or a JS object
+      const address = {
+        country: document.getElementById('country').value,
+        fullname: document.getElementById('fullname').value,
+        mobile: document.getElementById('mobile').value,
+        location: document.getElementById('location').value,
+        landmark: document.getElementById('landmark').value,
+        pincode: document.getElementById('pincode').value,
+        state: document.getElementById('state').value
+      };
+      localStorage.setItem('fogg_address', JSON.stringify(address));
+      document.getElementById('buyModal').style.display = 'none';
+      document.getElementById('paymentModal').style.display = 'flex';
+    }
+
+    // Payment form logic
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('paymentForm').addEventListener('change', function(e) {
+        const paymentFields = document.getElementById('paymentFields');
+        paymentFields.innerHTML = '';
+        if (e.target.value === 'card') {
+          paymentFields.innerHTML = `
+            <input type="text" placeholder="Card Number" required>
+            <input type="text" placeholder="Expiry Date (MM/YY)" required>
+            <input type="text" placeholder="CVV" required>
+          `;
+        } else if (e.target.value === 'online') {
+          paymentFields.innerHTML = `
+            <input type="text" placeholder="UPI ID or Netbanking Details" required>
+          `;
+        }
+      });
+    });
+
+    // Complete order and save to Orders
+    function completeOrder() {
+      const paymentType = document.querySelector('input[name="payment"]:checked').value;
+      const address = JSON.parse(localStorage.getItem('fogg_address'));
+      const order = {
+        product: "Fogg Scarlet",
+        price: "₹1999",
+        images: [
+          "OIP (3).webp",
+          "https://m.media-amazon.com/images/I/71Zo70FHAEL._SL1500_.jpg",
+          "https://tse2.mm.bing.net/th/id/OIP.0WhobiOyS7E_FAEcqPP-hQHaIp?pid=ImgDet&w=474&h=553&rs=1&o=7&rm=3"
+        ],
+        address: address,
+        payment: paymentType
+      };
+      // Save to Orders (array)
+      let orders = JSON.parse(localStorage.getItem('orders') || "[]");
+      orders.push(order);
+      localStorage.setItem('orders', JSON.stringify(orders));
+      alert("Order placed successfully! You can view it in your Orders section.");
+      document.getElementById('paymentModal').style.display = 'none';
+      window.location.href = "Front.html";
+    }
+
+    // Close modal when clicking outside modal-content
+    window.onclick = function(event) {
+      if (event.target === document.getElementById('buyModal')) closeBuyModal();
+      if (event.target === document.getElementById('paymentModal')) closePaymentModal();
+    };
+  </script>
+</body>
+</html>

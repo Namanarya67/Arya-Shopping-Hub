@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arya Shopping Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      /* Mixture of black and red gradient background */
+      background: linear-gradient(135deg, #0d0d0d 0%, #2d0000 50%, #ff1a1a 100%);
+      background-repeat: no-repeat;
+      min-height: 100vh;
+    }
+    /* Make header background image and content stretch full width horizontally */
+    header {
+      width: 100vw;
+      max-width: 100vw;
+      overflow: hidden;
+      position: relative;
+      background: none;
+      color: #fff;
+      padding: 24px 0 20px 0;
+      text-align: center;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      z-index: 10;
+    }
+    .header-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 100%;
+      background: url('https://png.pngtree.com/thumb_back/fw800/background/20230512/pngtree-perfume-laser-light-background-image_2459888.jpg') center center/cover no-repeat;
+      opacity: 0.18;
+      z-index: 1;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      pointer-events: none;
+    }
+    /* Make sure header content stays above the background image */
+    header > * {
+      position: relative;
+      z-index: 2;
+    }
+    h1 {
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      text-shadow: 0 4px 24px #000, 0 1px 0 #fff;
+      margin-bottom: 10px;
+    }
+    /* Ensure the main content and banner also stretch horizontally */
+    .banner {
+      width: 100vw;
+      max-width: 100vw;
+      margin-left: 0;
+      margin-right: 0;
+      border-radius: 0 0 18px 18px;
+    }
+    .shop-section {
+      width: 100vw;
+      max-width: 100vw;
+      margin-left: 0;
+      margin-right: 0;
+      border-radius: 18px;
+    }
+    .banner {
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      height: 240px;
+      background: linear-gradient(90deg, #fffbe6 0%, #fff9cc 100%);
+      /* Remove purple, use light yellow */
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+      border-radius: 18px;
+      margin: 24px 32px 0 32px;
+    }
+    .banner-track {
+      display: flex;
+      width: calc(350px * 10);
+      animation: bannerScroll 24s linear infinite;
+      align-items: center;
+      perspective: 800px; /* For 3D effect */
+    }
+    .banner img {
+      width: 350px;
+      height: 200px;
+      object-fit: cover;
+      flex: 0 0 auto;
+      margin-right: 18px;
+      border-radius: 16px;
+      background: #222;
+      box-shadow: 0 8px 32px 0 rgba(255,0,0,0.10), 0 2px 12px 0 rgba(0,0,0,0.12);
+      /* 3D hover effect */
+      transition: transform 0.4s cubic-bezier(.25,.8,.25,1), box-shadow 0.4s;
+    }
+    .banner img:hover {
+      transform: scale(1.08) rotateY(12deg) rotateX(4deg);
+      box-shadow: 0 16px 48px 0 rgba(255,0,0,0.18), 0 4px 24px 0 rgba(0,0,0,0.18);
+      z-index: 2;
+    }
+    @keyframes bannerScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .shop-section {
+      padding: 32px 32px 24px 32px;
+      background: #fffbe6; /* Light yellow */
+      border-radius: 18px;
+      margin: 32px;
+      box-shadow: 0 8px 32px 0 rgba(255, 230, 128, 0.15);
+      color: #222; /* Dark text for contrast */
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      overflow-x: auto;
+      justify-content: flex-start;
+      align-items: stretch;
+      width: 100vw;
+      max-width: 100vw;
+      padding-left: 32px;
+      padding-right: 32px;
+      box-sizing: border-box;
+    }
+    .product {
+      min-width: 260px;
+      max-width: 300px;
+      flex: 1 1 calc(33.333% - 28px);
+      margin-bottom: 28px;
+      background: linear-gradient(135deg, #fffbe6 60%, #fff9cc 100%); /* Light yellow gradient */
+      color: #222;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px 0 rgba(255,0,0,0.08), 0 2px 8px 0 rgba(0,0,0,0.10);
+      transition: transform 0.3s cubic-bezier(.25,.8,.25,1), box-shadow 0.3s;
+      perspective: 600px;
+      position: relative;
+    }
+    .product:hover {
+      transform: scale(1.08) rotateY(-8deg) rotateX(2deg);
+      background: linear-gradient(135deg, #ffe259 60%, #ffa751 100%);
+      color: #222;
+      box-shadow: 0 8px 32px 0 rgba(255,0,0,0.18), 0 4px 24px 0 rgba(0,0,0,0.18);
+      z-index: 2;
+    }
+    .product img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px 0 rgba(0,0,0,0.14);
+      transition: transform 0.4s cubic-bezier(.25,.8,.25,1);
+    }
+    .product:hover img {
+      transform: scale(1.07) rotateY(6deg);
+    }
+    .product h3, .product p {
+      margin: 10px 0;
+    }
+    .product button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      margin-right: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 2px 8px 0 rgba(255,0,0,0.08);
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .add-to-cart {
+      background: linear-gradient(90deg, #ffe259 0%, #ffa751 100%);
+      color: #222;
+    }
+    .buy-now {
+      background: linear-gradient(90deg, #ff512f 0%, #dd2476 100%);
+      color: #fff;
+    }
+    .product button:hover {
+      animation: popBtn 0.3s;
+      box-shadow: 0 4px 16px 0 rgba(255,0,0,0.18);
+      transform: scale(1.13) rotateY(8deg);
+    }
+
+    @keyframes popBtn {
+      0% { transform: scale(1);}
+      50% { transform: scale(1.15) rotateY(10deg);}
+      100% { transform: scale(1);}
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .modal-content {
+      background: #222;
+      padding: 30px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
+      color: white;
+    }
+    .modal-content input, .modal-content select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+    }
+    .modal-content button {
+      background: red;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    /* ...existing styles... */
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      z-index: 10001;
+      transition: color 0.2s;
+      user-select: none;
+    }
+    .close-modal:hover {
+      color: #ff4444;
+    }
+    .modal-content {
+      position: relative; /* Needed for close button positioning */
+    }
+    .cart-animate {
+      animation: cartPop 0.5s;
+    }
+    @keyframes cartPop {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.2); }
+      60% { transform: scale(1.2); }
+      100% { transform: scale(1.2); }
+    }
+    .buy-animate {
+      animation: buyFlash 0.5s;
+    }
+    @keyframes buyFlash {
+      0% { background: greenyellow; }
+      50% { background: greenyellow; color: #222; }
+      100% { background: greenyellow; color: #fff; }
+    }
+    #orderBtn {
+      transition: background 0.2s;
+    }
+    #orderBtn:hover {
+      background: rgba(255,0,0,0.25);
+    }
+
+    /* Add this mic icon button after the search box in your header */
+    #micBtn {
+      animation: micPulse 2s infinite alternate;
+      box-shadow: 0 0 24px 6px #ff512f, 0 4px 16px 0 rgba(255,0,0,0.18);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    #micBtn.listening {
+      animation: micGlow 0.7s infinite alternate;
+      box-shadow: 0 0 36px 12px #ffe259, 0 4px 16px 0 rgba(255,0,0,0.18);
+      transform: scale(1.12) rotateY(8deg);
+    }
+    @keyframes micPulse {
+      0% { box-shadow: 0 0 8px 2px #ffe259, 0 4px 16px 0 rgba(255,0,0,0.10);}
+      100% { box-shadow: 0 0 24px 6px #ff512f, 0 4px 16px 0 rgba(255,0,0,0.18);}
+    }
+    @keyframes micGlow {
+      0% { box-shadow: 0 0 24px 6px #ff512f, 0 4px 16px 0 rgba(255,0,0,0.18);}
+      100% { box-shadow: 0 0 36px 12px #ffe259, 0 4px 16px 0 rgba(255,0,0,0.18);}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-bg"></div>
+    <h1>Arya Shopping Hub</h1>
+    <input type="text" id="searchBox" placeholder="Search products..." style="padding:8px; border-radius:5px; border:none; width:200px;">
+    <button id="micBtn" title="Ask Arya AI" style="background:linear-gradient(135deg,#ff512f,#ffe259,#dd2476);border:none;border-radius:50%;width:54px;height:54px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 4px 16px 0 rgba(255,0,0,0.18);margin-left:10px;cursor:pointer;transition:transform 0.3s;">
+      <!-- 3D AI logo mic icon -->
+      <svg id="micIcon" width="34" height="34" viewBox="0 0 34 34" fill="none" style="filter:drop-shadow(0 0 12px #ff512f);">
+        <ellipse cx="17" cy="15" rx="8" ry="10" fill="#fff" stroke="#ff512f" stroke-width="2"/>
+        <rect x="13" y="25" width="8" height="4" rx="2" fill="#ffe259" stroke="#ff512f" stroke-width="1.5"/>
+        <rect x="10" y="29" width="14" height="3" rx="1.5" fill="#dd2476" stroke="#ff512f" stroke-width="1"/>
+        <circle cx="17" cy="15" r="3" fill="#ff512f" opacity="0.7"/>
+      </svg>
+    </button>
+    <button id="cartBtn" style="background:yellow; color:#222; border:none; border-radius:5px; padding:8px 16px; margin-left:10px; cursor:pointer;">
+      🛒 Cart (<span id="cartCount">0</span>)
+    </button>
+    <button id="orderBtn" style="background:yellow; color:black; border:none; border-radius:5px; padding:8px 16px; margin-left:10px; cursor:pointer;">
+      📦 Orders (<span id="orderCount">0</span>)
+    </button>
+    <button id="homeBtn" style="background:yellow; color:black; border:none; border-radius:5px; padding:8px 16px; margin-left:10px; cursor:pointer;">
+      🏠 Home
+    </button>
+  </header>
+
+  <section class="banner">
+    <div class="banner-track">
+      <img src="img.jpg.png" alt="Banner 1">
+      <img src="www.Navbharatsaaamridhi.com (540 x 345 px) (1400 x 800 px).png" alt="Banner 2">
+      <img src="www.navbharatsamridhi.com (540 x 345 px).png" alt="Banner 3">
+      <img src="www.navbharatsamrrridhi.com (540 x 345 px) (1400 x 800 px).png" alt="Banner 4">
+      <img src="pexels-karolina-grabowska-5632407.jpg" alt="Banner 5">
+    </div>
+  </section>
+
+  <section class="shop-section">
+    <h2>Shop Products</h2>
+    <div class="products">
+      <!-- First row: 4 products -->
+      <div class="product" onclick="viewProduct('fogg')">
+        <img src="OIP (3).webp" alt="Ajmal Perfume">
+        <h3>Ajmal Perfume</h3>
+        <p>₹1999</p>
+        <button class="add-to-cart">Add to Cart</button>
+        <button class="buy-now">Buy Now</button>
+      </div>
+      <div class="product" onclick="viewProduct('ferrari')">
+        <img src="Banner_Perfume_Scuderia_Ferrari_Red_01.webp" alt="Ferrari Scuderia">
+        <h3>Ferrari Scuderia</h3>
+        <p>₹12999</p>
+        <button class="add-to-cart">Add to Cart</button>
+        <button class="buy-now">Buy Now</button>
+      </div>
+      <div class="product" onclick="viewProduct('forterer')">
+        <img src="Hair-Oil_0033_17-Furterer-5-Sense-Hair-Oil.webp" alt="Forterer Hair Oil">
+        <h3>Forterer Hair Oil</h3>
+        <p>₹3199</p>
+        <button class="add-to-cart">Add to Cart</button>
+        <button class="buy-now">Buy Now</button>
+      </div>
+      <div class="product" onclick="viewProduct('miss dior')">
+        <img src="HtOl89Mv7Qx4wweJ.jpg" alt="Miss Dior">
+        <h3>Miss Dior</h3>
+        <p>₹9499</p>
+        <button class="add-to-cart">Add to Cart</button>
+        <button class="buy-now">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- New section for next row of products -->
+  <section class="shop-section">
+    <h2>More Products</h2>
+    <div class="products">
+      <div class="product" onclick="viewProduct('superdry')">
+        <img src="Superdry 3.avif" alt="Superdry Perfume">
+        <h3>Superdry Perfume</h3>
+        <p>₹1800</p>
+        <button class="add-to-cart">Add to Cart</button>
+        <button class="buy-now">Buy Now</button>
+      </div>
+      <!-- Add 2 more products here for a row of 3 -->
+      <div class="product" onclick="viewProduct('product6')">
+        <img src="product6.jpg" alt="Product 6">
+        <h3>Product 6</h3>
+        <p>₹XXXX</p>
+        <button class="add-to-cart">Add to Cart</button>
+        <button class="buy-now">Buy Now</button>
+      </div>
+      <div class="product" onclick="viewProduct('product7')">
+        <img src="product7.jpg" alt="Product 7">
+        <h3>Product 7</h3>
+        <p>₹XXXX</p>
+        <button class="add-to-cart">Add to Cart</button>
+        <button class="buy-now">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal" id="checkoutModal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeModalBtn" title="Close">&times;</span>
+      <h2>Checkout</h2>
+      <input type="text" id="customerName" placeholder="Your Name" required>
+      <input type="text" id="address" placeholder="Delivery Address" required>
+      <input type="text" id="pincode" placeholder="Pin Code" required>
+      <input type="tel" id="phone" placeholder="Phone Number" required>
+      <select id="paymentMethod">
+        <option value="">Select Payment Method</option>
+        <option value="cod">Cash on Delivery</option>
+        <option value="upi">UPI</option>
+        <option value="card">Credit/Debit Card</option>
+      </select>
+      <div id="paymentFields"></div>
+      <button onclick="submitOrder()">Place Order</button>
+    </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div class="modal" id="cartModal">
+    <div class="modal-content" style="max-width:400px; background:rgba(255,0,0,0.12);">
+      <span class="close-modal" id="closeCartBtn" title="Close">&times;</span>
+      <h2>Your Cart</h2>
+      <div id="cartItems"></div>
+      <button onclick="checkoutFromCart()" style="margin-top:15px;">Checkout</button>
+    </div>
+  </div>
+
+  <!-- Orders Modal -->
+  <div class="modal" id="orderModal">
+    <div class="modal-content" style="max-width:400px; background:rgba(255,0,0,0.12);">
+      <span class="close-modal" id="closeOrderBtn" title="Close">&times;</span>
+      <h2>Your Orders</h2>
+      <div id="orderItems"></div>
+    </div>
+  </div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+    // Update cart and order count on page load
+    document.getElementById('cartCount').textContent = cart.length;
+    document.getElementById('orderCount').textContent = orders.length;
+
+    // Add to Cart animation and logic
+    document.querySelectorAll('.add-to-cart').forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        const productCard = btn.closest('.product');
+        const title = productCard.querySelector('h3').textContent;
+        const price = productCard.querySelector('p').textContent;
+        const image = productCard.querySelector('img').src;
+
+        cart.push({ title, price, image });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        document.getElementById('cartCount').textContent = cart.length;
+
+        btn.textContent = 'Added!';
+        btn.classList.add('cart-animate');
+        setTimeout(() => {
+          btn.textContent = 'Add to Cart';
+          btn.classList.remove('cart-animate');
+        }, 800);
+      });
+    });
+
+    // Buy Now animation and logic
+    document.querySelectorAll('.buy-now').forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        btn.classList.add('buy-animate');
+        setTimeout(() => btn.classList.remove('buy-animate'), 600);
+        document.getElementById('checkoutModal').style.display = 'flex';
+      });
+    });
+
+    // Cart modal logic
+    document.getElementById('cartBtn').onclick = function() {
+      showCart();
+      document.getElementById('cartModal').style.display = 'flex';
+    };
+    document.getElementById('closeCartBtn').onclick = function() {
+      document.getElementById('cartModal').style.display = 'none';
+    };
+    document.getElementById('cartModal').onclick = function(e) {
+      if (e.target === this) this.style.display = 'none';
+    };
+
+    // Order modal logic
+    document.getElementById('orderBtn').onclick = function() {
+      showOrders();
+      document.getElementById('orderModal').style.display = 'flex';
+    };
+    document.getElementById('closeOrderBtn').onclick = function() {
+      document.getElementById('orderModal').style.display = 'none';
+    };
+    document.getElementById('orderModal').onclick = function(e) {
+      if (e.target === this) this.style.display = 'none';
+    };
+
+    function showCart() {
+      const cartItemsDiv = document.getElementById('cartItems');
+      cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
+        return;
+      }
+      cartItemsDiv.innerHTML = cart.map((item, i) => `
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <img src="${item.image}" alt="" style="width:40px;height:40px;border-radius:5px;margin-right:10px;">
+          <span>${item.title} - ${item.price}</span>
+          <button onclick="removeFromCart(${i})" style="background:red;color:white;border:none;border-radius:3px;padding:2px 8px;cursor:pointer;">Remove</button>
+        </div>
+      `).join('');
+    }
+
+    function showOrders() {
+      const orderItemsDiv = document.getElementById('orderItems');
+      orders = JSON.parse(localStorage.getItem('orders')) || [];
+      if (orders.length === 0) {
+        orderItemsDiv.innerHTML = "<p>No orders yet.</p>";
+        return;
+      }
+      orderItemsDiv.innerHTML = orders.map(order => {
+        // If order.items exists (cart order), show all items, else show single product order
+        let itemsHtml = "";
+        if (order.items && Array.isArray(order.items) && order.items.length > 0) {
+          itemsHtml = `
+            <ul style="margin:5px 0 0 15px;padding:0;">
+              ${order.items.map(item => `<li><strong>${item.title}</strong> - ${item.price}</li>`).join('')}
+            </ul>
+          `;
+        } else if (order.product) {
+          // For single product orders (from Buy Now on product page)
+          itemsHtml = `
+            <ul style="margin:5px 0 0 15px;padding:0;">
+              <li><strong>${order.product}</strong> - ${order.price || ''}</li>
+            </ul>
+          `;
+        } else {
+          itemsHtml = "<p>No product details found.</p>";
+        }
+
+        // Show product images if available
+        let imagesHtml = "";
+        if (order.images && Array.isArray(order.images)) {
+          imagesHtml = `<div style="display:flex;gap:8px;margin-bottom:8px;">
+            ${order.images.map(img => `<img src="${img}" alt="" style="width:40px;height:40px;border-radius:6px;object-fit:cover;">`).join('')}
+          </div>`;
+        } else if (order.items && order.items.length > 0) {
+          imagesHtml = `<div style="display:flex;gap:8px;margin-bottom:8px;">
+            ${order.items.map(item => `<img src="${item.image}" alt="" style="width:40px;height:40px;border-radius:6px;object-fit:cover;">`).join('')}
+          </div>`;
+        }
+
+        // Address display
+        let addressHtml = "";
+        if (order.address && typeof order.address === "object") {
+          addressHtml = `
+            <div style="font-size:0.95em;">
+              ${order.address.fullname || ""}, ${order.address.country || ""}<br>
+              ${order.address.location || ""}, ${order.address.landmark || ""}<br>
+              ${order.address.state || ""}, ${order.address.pincode || ""}<br>
+              Mobile: ${order.address.mobile || ""}
+            </div>
+          `;
+        } else {
+          addressHtml = `<span style="font-size:0.95em;">${order.address || ""}, ${order.pincode || ""}</span>`;
+        }
+
+        // Payment mode
+        let paymentHtml = "";
+        if (order.payment) {
+          paymentHtml = `<span style="font-size:0.95em;">Payment: ${order.payment.toUpperCase()}</span>`;
+        } else if (order.method) {
+          paymentHtml = `<span style="font-size:0.95em;">Payment: ${order.method.toUpperCase()}</span>`;
+        }
+
+        return `
+          <div style="background:rgba(255,0,0,0.08);border-radius:6px;padding:10px;margin-bottom:10px;">
+            ${imagesHtml}
+            ${addressHtml}<br>
+            ${paymentHtml}
+            ${itemsHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.removeFromCart = function(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      document.getElementById('cartCount').textContent = cart.length;
+      showCart();
+    };
+
+    window.checkoutFromCart = function() {
+      document.getElementById('cartModal').style.display = 'none';
+      document.getElementById('checkoutModal').style.display = 'flex';
+    };
+
+    // Search functionality
+    document.getElementById('searchBox').addEventListener('input', function() {
+      const query = this.value.toLowerCase();
+      document.querySelectorAll('.product').forEach(product => {
+        const title = product.querySelector('h3').textContent.toLowerCase();
+        product.style.display = title.includes(query) ? '' : 'none';
+      });
+    });
+
+    // Payment method fields
+    document.getElementById('paymentMethod').addEventListener('change', function() {
+      const paymentFields = document.getElementById('paymentFields');
+      paymentFields.innerHTML = '';
+      if (this.value === 'upi') {
+        paymentFields.innerHTML = '<input type="text" placeholder="Enter UPI ID">';
+      } else if (this.value === 'card') {
+        paymentFields.innerHTML = '<input type="text" placeholder="Card Number"><input type="text" placeholder="Expiry Date"><input type="text" placeholder="CVV">';
+      }
+    });
+
+    function submitOrder() {
+      const name = document.getElementById('customerName').value;
+      const address = document.getElementById('address').value;
+      const pincode = document.getElementById('pincode').value;
+      const phone = document.getElementById('phone').value;
+      const method = document.getElementById('paymentMethod').value;
+
+      if (!name || !address || !pincode || !phone || !method) {
+        alert('Please fill all fields before proceeding.');
+        return;
+      }
+
+      // Save order with cart items
+      let orderItems = cart.length ? [...cart] : [];
+      if (orderItems.length === 0) {
+        // If cart is empty, try to get the product from Buy Now (single product)
+        // Not implemented here, but you can add logic if needed
+      }
+      orders.push({
+        name, address, pincode, phone, method, items: orderItems
+      });
+      localStorage.setItem('orders', JSON.stringify(orders));
+      document.getElementById('orderCount').textContent = orders.length;
+
+      alert(`Thank you, ${name}!\nYour order will be delivered to:\n${address}, ${pincode}\nPhone: ${phone}\nPayment method: ${method.toUpperCase()}`);
+      document.getElementById('checkoutModal').style.display = 'none';
+
+      // Clear cart after order
+      cart = [];
+      localStorage.setItem('cart', JSON.stringify(cart));
+      document.getElementById('cartCount').textContent = 0;
+    }
+
+    // Close modal when clicking the close icon
+    document.getElementById('closeModalBtn').onclick = function() {
+      document.getElementById('checkoutModal').style.display = 'none';
+    };
+    document.getElementById('closeOrderBtn').onclick = function() {
+      document.getElementById('orderModal').style.display = 'none';
+    };
+
+    // Optional: Close modal when clicking outside modal-content
+    document.getElementById('checkoutModal').onclick = function(e) {
+      if (e.target === this) this.style.display = 'none';
+    };
+    document.getElementById('orderModal').onclick = function(e) {
+      if (e.target === this) this.style.display = 'none';
+    };
+
+    // Home button logic
+    document.getElementById('homeBtn').onclick = function() {
+      window.location.href = 'index.html'; // Change to your home page file name if different
+    };
+
+    // --- Arya AI Voice Assistant ---
+
+    // Product database for voice search and product click
+    const productPages = {
+      'ajmal': 'fogg.html',
+      'fogg': 'fogg.html',
+      'ferrari': 'ferrari.html',
+      'miss dior': 'Missdior.html',   // Fix: Use correct case-sensitive file name
+      'miss': 'Missdior.html',
+      'dior': 'Missdior.html',
+      'forterer': 'Forterer.html',    // Fix: Use correct case-sensitive file name
+      'hair oil': 'Forterer.html',
+      'superdry': 'superdry.html',    // Fix: Add superdry.html mapping
+      // Add more products here as needed
+    };
+
+    // Universal product click handler
+    function viewProduct(product) {
+      // Try exact match first
+      let url = productPages[product.toLowerCase()];
+      // Try partial match if not found
+      if (!url) {
+        const key = Object.keys(productPages).find(k => product.toLowerCase().includes(k));
+        if (key) url = productPages[key];
+      }
+      if (url) {
+        window.location.href = url;
+      } else {
+        alert('Product page not found!');
+      }
+    }
+  </script>
+</body>
+</html>
